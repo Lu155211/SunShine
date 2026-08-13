@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" role="img" aria-labelledby="title desc">
+  <title id="title">JianLu</title>
+  <desc id="desc">JianLu 的字母头像</desc>
+  <rect width="120" height="120" rx="60" fill="#22221f"/>
+  <circle cx="60" cy="60" r="48" fill="none" stroke="#f2eee3" stroke-opacity=".22"/>
+  <path d="M21 78c22-5 32-36 54-40 11-2 20 1 29 7M18 91c28-3 38-31 59-37 9-3 19-2 28 2" fill="none" stroke="#d2a94e" stroke-width="2"/>
+  <text x="60" y="75" fill="#f4f1e8" font-family="Georgia,serif" font-size="42" font-style="italic" text-anchor="middle">JL</text>
+</svg>
