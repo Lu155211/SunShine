@@ -1,0 +1,22 @@
+public/blog/jianlu-site-manual.html
+  s_63908b40020237::t_0bacad3ab50f91 1-63
+public/blog/personal-systems.html
+  s_63908b40020237::t_991360ba6e84fa 1-42
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.22",
+  "base_commit_sha": "c3d1fe0707de0707e9381dd93e975980cc68ccbe",
+  "prompts": {},
+  "logical_commit_id": "c3d1fe0707de0707e9381dd93e975980cc68ccbe",
+  "sessions": {
+    "s_63908b40020237": {
+      "agent_id": {
+        "tool": "cursor",
+        "id": "61ae81b3-74a1-4c87-a204-f27966567209",
+        "model": "default"
+      },
+      "human_author": "lujian <lujian@bigo.sg>"
+    }
+  }
+}
