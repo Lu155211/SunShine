@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="JianLu 的个人主页，记录产品、AI、设计与独立创作。" />
+    <meta name="author" content="JianLu" />
+    <meta property="og:title" content="JianLu" />
+    <meta property="og:description" content="产品、AI、设计与独立创作。" />
+    <meta property="og:type" content="website" />
+    <title>JianLu</title>
+    <link rel="icon" href="avatar.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="styles.css?v=20260805" />
+    <script src="script.js" defer></script>
+  </head>
+  <body>
+    <nav class="floating-nav" aria-label="主导航">
+      <a href="index.html" aria-current="page">首页</a>
+      <a href="blog/index.html">文章</a>
+      <div class="nav-dropdown">
+        <button type="button" aria-expanded="false">作品 <span aria-hidden="true">⌄</span></button>
+        <div class="dropdown-menu">
+          <a href="#projects">项目 <small>03</small></a>
+          <a href="#books">出版与笔记 <small>04</small></a>
+          <a href="#timeline">经历 <small>04</small></a>
+        </div>
+      </div>
+      <button class="theme-toggle" type="button" aria-label="切换到深色模式"></button>
+    </nav>
+
+    <main>
+      <section class="intro">
+        <div class="identity">
+          <img class="avatar" src="avatar.svg" alt="JianLu" />
+          <h1>JianLu</h1>
+        </div>
+
+        <p>独立创作者与产品实践者。正在构建 AI 工具、个人工作系统，并记录那些让技术真正服务于人的设计方法。</p>
+        <p>曾参与从零到一的产品设计与开发，长期关注复杂问题如何被整理成简单、可靠、可持续使用的体验。</p>
+        <p>我在这里分享正在学习的内容：AI、软件、产品设计，以及一个人如何建立自己的创造系统。</p>
+        <button class="email" type="button" data-email="hello@yourname.com">hello[at]yourname.com</button>
+      </section>
+
+      <section class="section" aria-labelledby="current-work">
+        <h2 id="current-work">当前工作</h2>
+        <div class="work-list">
+          <article class="work-row">
+            <h3>AI 工具</h3>
+            <p>研究可靠的个人智能助手：上下文、记忆、工具调用、权限，以及真正能完成工作的交互方式。</p>
+          </article>
+          <article class="work-row">
+            <h3>产品设计</h3>
+            <p>把复杂需求转化为清晰的信息结构、交互路径和能够长期演进的设计系统。</p>
+          </article>
+          <article class="work-row">
+            <h3>持续写作</h3>
+            <p>将项目中的真实经验整理成文章，让零散的观察成为可复用的方法。</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="section" id="projects" aria-labelledby="projects-title">
+        <h2 id="projects-title">项目</h2>
+        <div class="card-list">
+          <article class="project-card">
+            <div class="project-links">
+              <h3><a href="https://github.com/Lu155211/SunShine" target="_blank" rel="noopener noreferrer">SunShine</a></h3><span>|</span><a class="secondary" href="https://github.com/Lu155211/SunShine" target="_blank" rel="noopener noreferrer">GitHub</a>
+            </div>
+            <p>这个个人网站的完整开源代码，包含页面结构、文章内容、响应式样式与 Cloudflare Workers 部署配置。</p>
+          </article>
+          <article class="project-card">
+            <div class="project-links">
+              <h3><a href="#">Kite</a></h3><span>|</span><a class="secondary" href="#">GitHub</a>
+            </div>
+            <p>本地优先的 AI 助手实验，提供文件整理、知识检索、自动化工作流与清晰的执行记录。</p>
+          </article>
+          <article class="project-card">
+            <div class="project-links"><h3><a href="#">Field Notes</a></h3></div>
+            <p>关于设计、创造和生活方法的长期笔记计划。</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="section" aria-labelledby="essays-title">
+        <div class="section-title-row">
+          <h2 id="essays-title">精选文章</h2>
+          <a href="blog/index.html">全部文章</a>
+        </div>
+        <div class="card-list">
+          <a class="essay-card" href="blog/personal-systems.html">
+            <h3>建立一套真正属于自己的工作系统</h3>
+            <p>工具不是答案。好的系统应该适应人的注意力、节奏与长期目标。</p>
+          </a>
+          <a class="essay-card" href="blog/agent-skills.html">
+            <h3>理解 Agent 与 Skill：从循环到能力包</h3>
+            <p>从 Agent 的循环工作原理出发，理解 Skill 如何把专业知识变成可随取随用的能力包。</p>
+          </a>
+          <a class="essay-card" href="blog/jianlu-site-manual.html">
+            <h3>个人网页技术手册</h3>
+            <p>从内容结构、本地编辑到 Cloudflare 部署，说明这份个人网页如何持续维护。</p>
+          </a>
+          <a class="essay-card" href="blog/index.html">
+            <h3>独立创作的复利</h3>
+            <p>作品、文章与工具如何在时间中互相连接，形成个人能力的复利。</p>
+          </a>
+        </div>
+      </section>
+
+      <section class="section" aria-labelledby="themes-title">
+        <h2 id="themes-title">研究主题</h2>
+        <div class="themes-grid">
+          <article class="theme-card"><h3>个人智能</h3><p>上下文、记忆、偏好与真正属于个人的计算体验。</p></article>
+          <article class="theme-card"><h3>产品系统</h3><p>信息架构、设计语言，以及产品如何保持一致地生长。</p></article>
+          <article class="theme-card"><h3>工具与注意力</h3><p>工具如何影响人的行为、思考质量与创造节奏。</p></article>
+          <article class="theme-card"><h3>长期创作</h3><p>写作、开源与独立作品带来的长期复利。</p></article>
+        </div>
+      </section>
+
+      <section class="section" aria-labelledby="activity-title">
+        <h2 id="activity-title">GitHub 活动</h2>
+        <div class="activity">
+          <div class="activity-head"><strong>持续构建</strong><span>过去 12 个月</span></div>
+          <div class="activity-grid" aria-hidden="true"></div>
+        </div>
+      </section>
+
+      <section class="section" id="books" aria-labelledby="books-title">
+        <h2 id="books-title">出版与笔记</h2>
+        <div class="books-list">
+          <article class="publication-row">
+            <time>2021</time>
+            <div>
+              <span class="publication-type">会议论文</span>
+              <a class="publication-title" href="https://ieeexplore.ieee.org/abstract/document/9580383/" target="_blank" rel="noopener noreferrer">Average Rate Analysis of D2D Coded Caching with Uncoded Prefetching</a>
+              <p class="publication-meta">Jian Lu, Jiayi Zhao, Jinbei Zhang · 2021 IEEE/CIC International Conference on Communications in China (ICCC), Xiamen, China</p>
+              <p class="publication-id">DOI: 10.1109/ICCC52777.2021.9580383</p>
+            </div>
+          </article>
+          <article class="publication-row">
+            <time>2021</time>
+            <div>
+              <span class="publication-type">会议论文</span>
+              <a class="publication-title" href="https://ieeexplore.ieee.org/abstract/document/9419997/" target="_blank" rel="noopener noreferrer">Coded Wireless Distributed Matrix Multiplication with Flexible Assignment of Output Vectors</a>
+              <p class="publication-meta">Jiayi Zhao, Jian Lu, Jinbei Zhang · 2021 IEEE Wireless Communications and Networking Conference Workshops (WCNCW), Nanjing, China</p>
+              <p class="publication-id">DOI: 10.1109/WCNCW49093.2021.9419997</p>
+            </div>
+          </article>
+          <article class="publication-row">
+            <time>2021</time>
+            <div>
+              <span class="publication-type">中国发明专利</span>
+              <a class="publication-title" href="https://patents.google.com/patent/CN113132466A/en" target="_blank" rel="noopener noreferrer">基于编码缓存的多接入通信方法、装置、设备及介质</a>
+              <p class="publication-meta">发明人：陆剑、张金钡、赵家毅、关卓东 · 专利权人：中山大学</p>
+              <p class="publication-id">公布号：CN113132466A · 授权公告：CN113132466B</p>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="section" id="timeline" aria-labelledby="timeline-title">
+        <h2 id="timeline-title">时间线</h2>
+        <div class="timeline">
+          <div class="timeline-row"><time>2026.07—</time><div>独立构建产品，研究 AI 如何参与真实工作。</div></div>
+          <div class="timeline-row"><time>2021.07—</time><div>音视频编解码算法工程师，打磨泛娱乐直播 &amp; 短视频。</div></div>
+          <div class="timeline-row"><time>2019.08—2021.06</time><div>中山大学，电子与通信工程学院，电子与通信工程专业，工学硕士。</div></div>
+          <div class="timeline-row"><time>2015.08—2019.06</time><div>中山大学，数据科学与计算机学院，信息与计算科学专业，理学学士。</div></div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <p>我的社交账号：</p>
+      <div class="footer-links">
+        <a href="#">X</a><a href="#">GitHub</a><a href="#">即刻</a><a href="#">小红书</a>
+      </div>
+      <p style="margin-top:22px">© <span data-year>2026</span> JianLu · <a href="#">RSS</a> · <a href="#">隐私</a></p>
+    </footer>
+  </body>
+</html>
