@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="个人网页的内容结构、编辑方式、预览流程与部署说明。" />
+    <title>个人网页技术手册 — JianLu</title>
+    <link rel="icon" href="../avatar.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="../styles.css?v=20260805" />
+    <script src="../script.js" defer></script>
+  </head>
+  <body>
+    <nav class="floating-nav" aria-label="主导航">
+      <a href="../index.html">首页</a><a href="index.html" aria-current="page">文章</a><a href="../index.html#projects">项目</a><button class="theme-toggle" type="button" aria-label="切换到深色模式"></button>
+    </nav>
+    <main>
+      <header class="article-header">
+        <a class="back" href="index.html">← 返回文章列表</a>
+        <h1>个人网页技术手册</h1>
+        <p class="article-meta">2026 年 8 月 4 日 · 7 分钟阅读</p>
+      </header>
+      <article class="prose">
+        <p>这份个人网页不仅是一张在线名片，也是一个持续更新的公开工作台。它用尽可能少的技术依赖，保存个人介绍、项目、文章、研究主题与经历，让内容能够被长期维护，而不是随着某个平台的变化而消失。</p>
+
+        <h2>技术结构</h2>
+        <p>网站由原生 HTML、CSS 和少量 JavaScript 构成，没有数据库，也不依赖前端框架。所有页面都是可以直接阅读和备份的静态文件，部署目标是 Cloudflare Workers 静态资源服务。</p>
+        <ul>
+          <li><code>public/index.html</code>：首页，包括个人介绍、项目、文章、出版与笔记、时间线。</li>
+          <li><code>public/blog/index.html</code>：文章目录。</li>
+          <li><code>public/blog/</code>：每篇文章对应一个独立 HTML 文件。</li>
+          <li><code>public/styles.css</code>：全站排版、颜色、响应式布局与深色模式。</li>
+          <li><code>public/script.js</code>：主题切换、导航菜单、邮箱复制与活动图。</li>
+          <li><code>wrangler.jsonc</code>：Cloudflare 项目名称及静态文件目录。</li>
+        </ul>
+
+        <h2>如何修改内容</h2>
+        <p>使用 VS Code、Cursor 或其他文本编辑器打开项目目录。修改首页时编辑 <code>public/index.html</code>；新增文章时，可以复制一篇现有文章，更新标题、日期、摘要与正文，再把链接加入文章目录或首页的“出版与笔记”。</p>
+        <p>内容更新应尽量保持语义清晰：页面主标题使用一个 <code>h1</code>，章节使用 <code>h2</code>，时间使用 <code>time</code>，导航和链接文字直接说明目的。这样既有利于搜索引擎，也能让辅助技术正确理解页面。</p>
+
+        <h2>本地预览</h2>
+        <p>发布之前，进入 <code>public</code> 目录并运行 <code>python3 -m http.server 4175</code>，然后在浏览器打开 <code>http://localhost:4175</code>。至少检查首页、文章列表和新文章，并分别查看桌面与手机宽度。</p>
+        <blockquote>先在本地确认内容、链接和移动端排版，再部署到公网。这个简单顺序可以避免大多数线上错误。</blockquote>
+
+        <h2>部署到 Cloudflare</h2>
+        <p>项目通过 Wrangler 发布。新电脑第一次部署时，需要安装 Node.js，进入项目目录后执行 <code>npx wrangler login</code> 完成 Cloudflare 授权。之后运行 <code>npx wrangler deploy</code>，Wrangler 会读取配置并上传整个 <code>public</code> 目录。</p>
+        <p>部署完成后，应打开公网地址检查页面，并确认新内容已经生效。浏览器缓存导致内容未更新时，可以强制刷新，或在地址后临时添加查询参数再次访问。</p>
+
+        <h2>推荐的维护流程</h2>
+        <ul>
+          <li>修改内容，并删除已经失效的占位信息。</li>
+          <li>本地预览，检查桌面端、移动端和深色模式。</li>
+          <li>用 Git 提交本次修改，留下清晰的版本记录。</li>
+          <li>执行部署，随后检查公网地址与关键链接。</li>
+          <li>定期备份项目，最好保存在私有 Git 仓库中。</li>
+        </ul>
+
+        <h2>设计原则</h2>
+        <p>这份个人网页优先追求可读、可迁移和可维护。页面不依赖复杂运行环境，内容归个人所有；视觉设计保持克制，让文字、经历与作品成为主体。技术的角色不是制造存在感，而是让表达稳定地抵达读者。</p>
+      </article>
+    </main>
+    <footer class="footer" style="margin-top:70px"><p>© <span data-year>2026</span> JianLu · <a href="index.html">更多文章</a></p></footer>
+  </body>
+</html>
