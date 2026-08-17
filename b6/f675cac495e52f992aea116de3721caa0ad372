@@ -1,0 +1,24 @@
+public/blog/codeclab-architecture.html
+  s_26b00c2f253f25::t_d091a1324a01a8 20,76
+public/index.html
+  s_26b00c2f253f25::t_d091a1324a01a8 67,73
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.22",
+  "base_commit_sha": "b6f675cac495e52f992aea116de3721caa0ad372",
+  "prompts": {},
+  "logical_commit_id": "b6f675cac495e52f992aea116de3721caa0ad372",
+  "sessions": {
+    "s_26b00c2f253f25": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019fb236-30f6-7852-a4a3-71b7113c8ca8",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": "lujian <lujian@bigo.sg>",
+      "total_additions": 4,
+      "total_deletions": 4
+    }
+  }
+}
