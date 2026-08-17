@@ -17,7 +17,7 @@
       <header class="article-header">
         <a class="back" href="index.html">← 返回文章列表</a>
         <h1>CodecLab：把视频编解码做成一条可解释的系统</h1>
-        <p class="article-meta">2026 年 8 月 14 日 · 12 分钟阅读 · <a class="inline-link" href="https://github.com/Lu155211/CodecLab" target="_blank" rel="noopener noreferrer">GitHub 源码</a></p>
+        <p class="article-meta">2026 年 8 月 14 日 · 12 分钟阅读 · <a class="inline-link" href="https://github.com/JianLoo/CodecLab" target="_blank" rel="noopener noreferrer">GitHub 源码</a></p>
       </header>
 
       <article class="prose">
@@ -73,7 +73,7 @@
         <p>CodecLab 的跨平台策略从 ABI 开始：保持核心 C ABI 向后兼容，新增配置只增加 JSON 字段，旧调用方可以忽略新响应。迁移到 iOS 时，软件编解码和指标路径可以复用；Android 的 MediaCodec 后端替换为 VideoToolbox，平台 UI 则由 SwiftUI 或 UIKit 负责。</p>
         <p>这也是我对“架构”的理解：不是提前抽象出一套漂亮的目录，而是在真正的边界上做出可测试、可替换、可解释的选择。</p>
 
-        <p>CodecLab 的完整工程与构建说明已放在 <a class="inline-link" href="https://github.com/Lu155211/CodecLab" target="_blank" rel="noopener noreferrer">GitHub 仓库</a>。如果你关心的不只是最终的 MP4，而是每一帧如何走过系统、每一个分数如何产生，这个项目就是一份可以继续拆开的答案。</p>
+        <p>CodecLab 的完整工程与构建说明已放在 <a class="inline-link" href="https://github.com/JianLoo/CodecLab" target="_blank" rel="noopener noreferrer">GitHub 仓库</a>。如果你关心的不只是最终的 MP4，而是每一帧如何走过系统、每一个分数如何产生，这个项目就是一份可以继续拆开的答案。</p>
       </article>
     </main>
     <footer class="footer" style="margin-top:70px"><p>© <span data-year>2026</span> JianLu · <a href="index.html">更多文章</a></p></footer>
