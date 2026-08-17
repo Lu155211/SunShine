@@ -1,0 +1,28 @@
+public/blog/index.html
+  s_26b00c2f253f25::t_9a6aa878efe135 28
+public/index.html
+  s_26b00c2f253f25::t_9a6aa878efe135 73,75,102-104
+public/styles.css
+  s_26b00c2f253f25::t_9a6aa878efe135 419-445
+public/blog/codeclab-architecture.html
+  s_26b00c2f253f25::t_9a6aa878efe135 1-81
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.22",
+  "base_commit_sha": "4a95d1fd39a4c907faf31fdd02736e1d40f5a39f",
+  "prompts": {},
+  "logical_commit_id": "4a95d1fd39a4c907faf31fdd02736e1d40f5a39f",
+  "sessions": {
+    "s_26b00c2f253f25": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019fb236-30f6-7852-a4a3-71b7113c8ca8",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": "lujian <lujian@bigo.sg>",
+      "total_additions": 114,
+      "total_deletions": 6
+    }
+  }
+}
