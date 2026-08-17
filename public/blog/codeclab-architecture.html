@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="CodecLab 的 Android 视频转码与客观画质分析架构。" />
+    <title>CodecLab：把视频编解码做成一条可解释的系统 — JianLu</title>
+    <link rel="icon" href="../avatar.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="../styles.css?v=20260814" />
+    <script src="../script.js" defer></script>
+  </head>
+  <body>
+    <nav class="floating-nav" aria-label="主导航">
+      <a href="../index.html">首页</a><a href="index.html" aria-current="page">文章</a><a href="../index.html#projects">项目</a><button class="theme-toggle" type="button" aria-label="切换到深色模式"></button>
+    </nav>
+    <main>
+      <header class="article-header">
+        <a class="back" href="index.html">← 返回文章列表</a>
+        <h1>CodecLab：把视频编解码做成一条可解释的系统</h1>
+        <p class="article-meta">2026 年 8 月 14 日 · 12 分钟阅读 · <a class="inline-link" href="https://github.com/Lu155211/CodecLab" target="_blank" rel="noopener noreferrer">GitHub 源码</a></p>
+      </header>
+
+      <article class="prose">
+        <p>视频转码很容易被描述成一个命令：输入文件，选择编码器，得到输出文件。但真正需要长期维护的工具，不能只关心“能不能输出”，还要回答三个问题：这一帧经过了哪些路径？失败发生在哪一层？画质指标到底在衡量什么？</p>
+        <p>CodecLab 是我用 Android、C++、FFmpeg 和 MediaCodec 搭起来的一个实验室。它的核心目标不是隐藏复杂性，而是把复杂性分层、命名并留下可验证的边界。</p>
+
+        <h2>一条清晰的分层边界</h2>
+        <pre><code>Android UI / File Picker / Task Queue
+          │
+          ├── MediaCodec：硬件解码、硬件编码、Surface 播放
+          │
+          └── JNI → libcodec_core.so
+                         ├── FFmpeg demux / decode / scale
+                         ├── x264 / x265 software encode
+                         ├── Annex-B + MP4 output
+                         └── PSNR + libvmaf metrics</code></pre>
+        <p>上层 Java 负责平台工作：选择文件、管理应用私有目录、串行调度批量任务、展示进度和播放结果。Native 核心负责媒体工作：探测输入、执行软件编解码、生成裸流和预览 MP4，以及计算客观指标。</p>
+        <p>两层之间不共享 FFmpeg 的内部结构体，而是通过字符串 JSON 的 C ABI 传递请求和响应。这样 JNI 很薄，未来把同一个核心接到 iOS 的 Objective-C++ 或 Swift bridge 时，也不需要把 FFmpeg 的版本细节暴露给上层。</p>
+
+        <h2>四种组合，四条明确的路径</h2>
+        <p>“硬件”与“软件”不是一个可以随时偷偷切换的实现细节，而是用户对任务的明确选择。CodecLab 将解码器和编码器拆开，形成四种组合：</p>
+        <table>
+          <thead><tr><th>解码</th><th>编码</th><th>实现</th><th>帧边界</th></tr></thead>
+          <tbody>
+            <tr><td>软件</td><td>软件</td><td>FFmpeg → x264 / x265</td><td>Native 内存</td></tr>
+            <tr><td>软件</td><td>硬件</td><td>FFmpeg → MediaCodec</td><td>临时 NV12</td></tr>
+            <tr><td>硬件</td><td>软件</td><td>MediaCodec → x264 / x265</td><td>临时 YUV</td></tr>
+            <tr><td>硬件</td><td>硬件</td><td>MediaCodec → MediaCodec</td><td>内存中的 YUV</td></tr>
+          </tbody>
+        </table>
+        <p>混合组合使用任务目录中的临时 YUV 文件作为阶段边界，成功或失败后都会清理。没有“硬件失败就自动改成软件”的隐式降级：如果用户选择的实现不可用，系统返回明确错误。这样结果才可复现，性能和画质比较才有意义。</p>
+
+        <h2>为什么硬件转码不能只读一个 YUV 平面</h2>
+        <p>Android 硬件解码的难点不只是调用 <code>MediaCodec</code>。不同设备可能返回不同的颜色格式、stride 和 slice-height；某些厂商还会把 UBWC 或 tiled 布局包装成看似普通的 <code>YUV_420_888</code>。如果按照紧凑的线性平面直接读取，就可能得到绿色花屏或错位画面。</p>
+        <p>CodecLab 的转码硬解路径使用 <code>MediaCodec.getOutputImage()</code> 获取线性输出，并根据真实的平面信息复制 Y、U、V 数据；硬编码则在启动后读取实际协商的颜色格式和对齐参数，再把输入 YUV 写入编码器。播放是另一条路径：硬件解码器直接输出到 <code>SurfaceView</code>，避免 ImageReader、Bitmap 和额外的 YUV 往返。</p>
+
+        <h2>播放为什么与转码分开</h2>
+        <p>预览的首要目标是低延迟和稳定渲染，不是暴露每一帧给算法。因此播放优先使用 <code>MediaExtractor → MediaCodec → SurfaceView</code>，在开始解码前预读视频尺寸，完成等比例布局，让硬件解码器直接把帧交给 Surface。</p>
+        <p>如果设备的硬件播放配置失败，才回退到原有的 <code>MediaPlayer + TextureView</code> 路径。这个回退只影响预览，不会改变用户在转码任务中选择的编码实现。</p>
+
+        <h2>指标先定义参考，再谈“画质”</h2>
+        <pre><code>预编码 YUV ──► 编码器 ──► preview.mp4 ──► 解码器
+     │                                      │
+     └──────────── PSNR / VMAF ────────────┘</code></pre>
+        <p>如果直接把“原视频文件”当作参考，指标会混入原始解码器、旋转、缩放和抽帧方式的差异。CodecLab 保存编码器实际收到的预编码 YUV，再把编码后 MP4 解码为输出帧，按顺序配对计算 PSNR，并用内置 <code>vmaf_v0.6.1</code> 模型计算 VMAF。</p>
+        <p>报告用 <code>metricBasis=pre_encode_yuv_vs_decoded_output</code> 标记这一基准。移动端默认每 2 帧采样一次 VMAF，把计算成本控制在可接受范围；批量任务结束后，再对成功文件做算术平均，同时展示有效文件数和统计帧数。</p>
+
+        <h2>可复现比“看起来能跑”更重要</h2>
+        <p>工程将 FFmpeg、x264、x265 和 libvmaf 的版本锁定在 <code>third_party/DEPENDENCIES.lock</code>，并通过脚本定义源码准备、媒体库构建和 Android 链接边界。日常 Android Studio Run 使用已发布的媒体包做完整性校验，不会每次启动都重编译第三方源码。</p>
+        <p>与此同时，构建产物、CMake 中间目录、Gradle 缓存、本地 SDK 配置和第三方源码缓存都不应该进入版本库。仓库保存的是能解释系统、重建依赖和定位问题的源代码与文档，而不是某台机器的临时状态。</p>
+
+        <h2>从 Android 走向跨平台</h2>
+        <p>CodecLab 的跨平台策略从 ABI 开始：保持核心 C ABI 向后兼容，新增配置只增加 JSON 字段，旧调用方可以忽略新响应。迁移到 iOS 时，软件编解码和指标路径可以复用；Android 的 MediaCodec 后端替换为 VideoToolbox，平台 UI 则由 SwiftUI 或 UIKit 负责。</p>
+        <p>这也是我对“架构”的理解：不是提前抽象出一套漂亮的目录，而是在真正的边界上做出可测试、可替换、可解释的选择。</p>
+
+        <p>CodecLab 的完整工程与构建说明已放在 <a class="inline-link" href="https://github.com/Lu155211/CodecLab" target="_blank" rel="noopener noreferrer">GitHub 仓库</a>。如果你关心的不只是最终的 MP4，而是每一帧如何走过系统、每一个分数如何产生，这个项目就是一份可以继续拆开的答案。</p>
+      </article>
+    </main>
+    <footer class="footer" style="margin-top:70px"><p>© <span data-year>2026</span> JianLu · <a href="index.html">更多文章</a></p></footer>
+  </body>
+</html>

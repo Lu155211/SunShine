@@ -416,6 +416,33 @@ h1 {
 .prose code { padding: 2px 5px; border-radius: 4px; background: var(--soft); font-size: .9em; }
 .prose ul { margin: -8px 0 24px; padding-left: 22px; }
 .prose li { margin-bottom: 9px; }
+.prose pre {
+  overflow-x: auto;
+  margin: 28px 0 30px;
+  padding: 18px;
+  border: 1px solid var(--line);
+  border-radius: 9px;
+  background: var(--soft);
+  color: var(--text);
+  font: 13px/1.65 ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  white-space: pre;
+}
+.prose pre code { padding: 0; background: transparent; font-size: inherit; }
+.prose table {
+  width: 100%;
+  margin: 28px 0 30px;
+  border-collapse: collapse;
+  font-size: 14px;
+  line-height: 1.5;
+}
+.prose th,
+.prose td {
+  padding: 10px 8px;
+  border-bottom: 1px solid var(--line);
+  text-align: left;
+  vertical-align: top;
+}
+.prose th { font-weight: 650; }
 
 .prose strong { font-weight: 650; }
 .article-figure {
